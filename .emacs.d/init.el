@@ -14,11 +14,11 @@
   (require 'diminish)
   (require 'bind-key))
 
-(use-package cmake-mode
-  :mode ("CMakeLists.txt" "\\.cmake\\'"))
-
 (use-package cmake-font-lock
   :hook (cmake-mode . cmake-font-lock-activate))
+
+(use-package cmake-mode
+  :mode ("CMakeLists.txt" "\\.cmake\\'"))
 
 ;; ##############################################################
 ;; Store backups and autosaves in central location
