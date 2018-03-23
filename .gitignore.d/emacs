@@ -1,5 +1,6 @@
 *
 !/.emacs.d
 !/.emacs.d/init.el
+!/.emacs.d/settings.el
 !/.gitignore.d
 !/.gitignore.d/emacs

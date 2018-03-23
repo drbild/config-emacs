@@ -1,6 +1,20 @@
+;; ##############################################################
+;; Functions
+;; ##############################################################
+
+(eval-and-compile
+  (define-inline emacs-path (path)
+    (expand-file-name path user-emacs-directory))
+
+  )
+
+;; ##############################################################
+;; Environment
+;; ##############################################################
+
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("melpa-stable" . "https://stable.melpa.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/"))
+                         ("melpa-stable" . "https://stable.melpa.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/"))
       package-enable-at-startup nil)
 
 (package-initialize)
@@ -8,11 +22,34 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+(unless (package-installed-p 'diminish)
+  (package-refresh-contents)
+  (package-install 'diminish))
+
+(unless (package-installed-p 'bind-key)
+  (package-refresh-contents)
+  (package-install 'bind-key))
+
 (eval-when-compile
   (setq use-package-always-ensure t)
   (require 'use-package)
   (require 'diminish)
   (require 'bind-key))
+
+;; ##############################################################
+;; Settings
+;; ##############################################################
+
+(setq custom-file (emacs-path "settings.el"))
+(load custom-file)
+
+;; ##############################################################
+;; Packages
+;; ##############################################################
+
+(use-package avy
+  :pin melpa-stable
+  :bind ("C-c C-j" . avy-goto-char))
 
 (use-package cmake-font-lock
   :hook (cmake-mode . cmake-font-lock-activate))
@@ -22,9 +59,14 @@
 
 (use-package markdown-mode
   :mode (("README\\.md\\'" . gfm-mode)
-	 ("\\.md\\'" . markdown-mode)
-	 ("\\.markdown\\'" . markdown-mode))
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
+
+(use-package whitespace
+  :diminish (global-whitespace-mode
+             whitespace-mode
+             whitespace-newline-mode))
 
 ;; ##############################################################
 ;; Store backups and autosaves in central location
@@ -52,18 +94,3 @@
               (concat "#" (file-name-nondirectory buffer-file-name) "#")
             (expand-file-name
              (concat "#%" (buffer-name) "#")))))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(delete-selection-mode nil)
- '(package-selected-packages
-   (quote
-    (markdown-mode use-package diminish cmake-font-lock centered-cursor-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
