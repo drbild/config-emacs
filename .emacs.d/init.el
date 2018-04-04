@@ -63,10 +63,15 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
+(use-package nginx-mode)
+
 (use-package whitespace
   :diminish (global-whitespace-mode
              whitespace-mode
              whitespace-newline-mode))
+
+(use-package yaml-mode
+  :mode ("\\.yml\\'" "\\.yaml\\'"))
 
 ;; ##############################################################
 ;; Store backups and autosaves in central location

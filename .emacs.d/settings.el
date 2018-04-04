@@ -7,7 +7,7 @@
  '(indent-tabs-mode nil)
  '(package-selected-packages
    (quote
-    (avy use-package markdown-mode diminish cmake-font-lock)))
+    (yaml-mode nginx-mode avy use-package markdown-mode diminish cmake-font-lock)))
  '(whitespace-style
    (quote
     (face trailing empty space-before-tab::tab tab-mark))))
