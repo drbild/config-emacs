@@ -9,7 +9,7 @@
  '(indent-tabs-mode nil)
  '(package-selected-packages
    (quote
-    (logstash-conf-mode yaml-mode nginx-mode avy use-package markdown-mode diminish cmake-font-lock)))
+    (ledger-mode logstash-conf-mode yaml-mode nginx-mode avy use-package markdown-mode diminish cmake-font-lock)))
  '(show-paren-mode t)
  '(visible-bell t)
  '(whitespace-style
