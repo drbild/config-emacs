@@ -7,9 +7,6 @@
  '(delete-selection-mode nil)
  '(global-whitespace-mode t)
  '(indent-tabs-mode nil)
- '(package-selected-packages
-   (quote
-    (ledger-mode logstash-conf-mode yaml-mode nginx-mode avy use-package markdown-mode diminish cmake-font-lock)))
  '(show-paren-mode t)
  '(visible-bell t)
  '(whitespace-style
