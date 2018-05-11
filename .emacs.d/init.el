@@ -51,7 +51,7 @@
 
 (use-package avy
   :pin melpa-stable
-  :bind ("C-c C-j" . avy-goto-char))
+  :bind ("C-c j" . avy-goto-char))
 
 (use-package cc-mode
   :mode ("\\.inl\\'" . c++-mode))
