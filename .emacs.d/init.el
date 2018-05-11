@@ -59,6 +59,11 @@
 (use-package cmake-mode
   :mode ("CMakeLists.txt" "\\.cmake\\'"))
 
+(use-package dtrt-indent
+  :diminish
+  :hook ((c-mode . dtrt-indent-mode)
+         (c++-mode . dtrt-indent-mode)))
+
 (use-package ledger-mode
   :mode ("\\.ledger\\'"))
 
