@@ -53,6 +53,9 @@
   :pin melpa-stable
   :bind ("C-c C-j" . avy-goto-char))
 
+(use-package cc-mode
+  :mode ("\\.inl\\'" . c++-mode))
+
 (use-package cmake-font-lock
   :hook (cmake-mode . cmake-font-lock-activate))
 
