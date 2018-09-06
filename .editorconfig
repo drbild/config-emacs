@@ -7,6 +7,6 @@ root = true
 end_of_line = 1f              # unix-style newlines
 insert_final_newline = true
 
-[*.gitconfig]
+[.gitconfig*]
 charset = utf-8
 indent_style = tab
