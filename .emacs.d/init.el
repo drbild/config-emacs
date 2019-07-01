@@ -67,6 +67,9 @@
   :config
   (editorconfig-mode 1))
 
+(use-package go-mode
+  :hook (before-save . gofmt-before-save))
+
 (use-package ledger-mode
   :mode ("\\.ledger\\'"))
 
