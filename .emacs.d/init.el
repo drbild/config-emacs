@@ -81,7 +81,8 @@
          ("\\.markdown\\'" . markdown-mode))
   :init (setq markdown-command "multimarkdown"))
 
-(use-package nginx-mode)
+(use-package nginx-mode
+  :defer t)
 
 (use-package whitespace
   :diminish (global-whitespace-mode
