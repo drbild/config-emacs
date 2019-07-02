@@ -68,7 +68,8 @@
   (editorconfig-mode 1))
 
 (use-package go-mode
-  :hook (before-save . gofmt-before-save))
+  :hook (before-save . gofmt-before-save)
+  :custom (tab-width 4))
 
 (use-package ledger-mode
   :mode ("\\.ledger\\'"))
