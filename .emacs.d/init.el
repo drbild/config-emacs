@@ -71,6 +71,9 @@
   :custom
   (editorconfig-mode 1))
 
+(use-package erlang
+  :defer t)
+
 (use-package go-mode
   :hook (before-save . gofmt-before-save)
   :custom
