@@ -68,7 +68,8 @@
 
 (use-package editorconfig
   :diminish editorconfig-mode
-  :custom
+  :ensure t
+  :config
   (editorconfig-mode 1))
 
 (use-package erlang
@@ -76,6 +77,12 @@
 
 (use-package go-mode
   :hook (before-save . gofmt-before-save)
+  :custom
+  (tab-width 4))
+
+(use-package kconfig-mode
+  :mode ("KConfig"
+         "Config.in")
   :custom
   (tab-width 4))
 
