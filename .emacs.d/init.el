@@ -68,9 +68,12 @@
 
 (use-package editorconfig
   :diminish editorconfig-mode
-  :ensure t
   :config
   (editorconfig-mode 1))
+
+(use-package elixir-mode
+  :mode ("\\.ex"
+	 "\\.exs"))
 
 (use-package erlang
   :defer t)
