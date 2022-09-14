@@ -101,6 +101,26 @@
 (use-package nginx-mode
   :defer t)
 
+(use-package prettier
+  :config
+  (add-hook 'after-init-hook #'global-prettier-mode))
+
+(use-package tree-sitter
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+
+(use-package tree-sitter-langs
+  :after tree-sitter)
+
+(use-package typescript-mode
+  :after tree-sitter
+  :config
+  (define-derived-mode typescriptreact-mode typescript-mode
+    "Typescript TSX")
+  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
+
 (use-package whitespace
   :diminish (global-whitespace-mode
              whitespace-mode
