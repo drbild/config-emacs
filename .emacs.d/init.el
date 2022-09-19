@@ -18,6 +18,8 @@
                          ("melpa" . "https://melpa.org/packages/"))
       package-enable-at-startup nil)
 
+(setq exec-path (append exec-path '("/home/drbild/.asdf/shims")))
+
 (package-initialize)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
