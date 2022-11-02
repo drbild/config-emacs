@@ -68,14 +68,20 @@
 (use-package cmake-mode
   :mode ("CMakeLists.txt" "\\.cmake\\'"))
 
+(use-package company
+  )
+
 (use-package editorconfig
   :diminish editorconfig-mode
   :config
   (editorconfig-mode 1))
 
+(use-package eglot
+  )
+
 (use-package elixir-mode
   :mode ("\\.ex"
-	 "\\.exs"))
+         "\\.exs"))
 
 (use-package erlang
   :defer t)
@@ -116,12 +122,12 @@
   :after tree-sitter)
 
 (use-package typescript-mode
-  :after tree-sitter
+  :after tree-sitter ;; reenable when tsc adds support for arm64 on Mac
   :config
-  (define-derived-mode typescriptreact-mode typescript-mode
-    "Typescript TSX")
-  (add-to-list 'auto-mode-alist '("\\.tsx?\\'" . typescriptreact-mode))
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescriptreact-mode . tsx)))
+  (define-derived-mode typescript-tsx-mode typescript-mode "TSX")
+  (add-to-list 'auto-mode-alist `(,(rx ".tsx" eos) . typescript-tsx-mode))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))
+  (add-hook 'typescript-mode-hook 'eglot-ensure))
 
 (use-package whitespace
   :diminish (global-whitespace-mode
