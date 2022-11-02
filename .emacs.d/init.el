@@ -49,6 +49,9 @@
 ;; ##############################################################
 ;; Packages
 ;; ##############################################################
+(use-package ace-window
+  :bind (("M-o" . 'ace-window)))
+
 (use-package auto-package-update
   :custom
   (auto-package-update-delete-old-versions t)
@@ -112,6 +115,17 @@
 (use-package prettier
   :config
   (add-hook 'after-init-hook #'global-prettier-mode))
+
+(use-package projectile
+  :bind-keymap
+  ("C-c p" . projectile-command-map))
+
+(use-package treemacs
+  :defer t
+  :bind (("M-0" . 'treemacs-select-window)))
+
+(use-package treemacs-projectile
+  :after (treemacs projectile))
 
 (use-package tree-sitter
   :config
