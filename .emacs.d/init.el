@@ -74,7 +74,7 @@
 (use-package company
   :defer 5
   :diminish
-  )
+  :hook (typescript-mode))
 
 (use-package diminish
   :demand t)
@@ -85,7 +85,8 @@
   (editorconfig-mode 1))
 
 (use-package eglot
-  )
+  :defer t
+  :hook (typescript-mode . eglot-ensure))
 
 (use-package elixir-mode
   :mode ("\\.ex"
@@ -142,12 +143,11 @@
   :after tree-sitter)
 
 (use-package typescript-mode
-  :after tree-sitter ;; reenable when tsc adds support for arm64 on Mac
+  ;;:after tree-sitter ;; reenable when tsc adds support for arm64 on Mac
   :config
   (define-derived-mode typescript-tsx-mode typescript-mode "TSX")
-  (add-to-list 'auto-mode-alist `(,(rx ".tsx" eos) . typescript-tsx-mode))
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))
-  (add-hook 'typescript-mode-hook 'eglot-ensure))
+  (add-to-list 'auto-mode-alist `(,(rx ".tsx" eos) . typescript-tsx-mode)))
+  ;;(add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))
 
 (use-package whitespace
   :diminish (global-whitespace-mode
