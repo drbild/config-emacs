@@ -72,7 +72,12 @@
   :mode ("CMakeLists.txt" "\\.cmake\\'"))
 
 (use-package company
+  :defer 5
+  :diminish
   )
+
+(use-package diminish
+  :demand t)
 
 (use-package editorconfig
   :diminish editorconfig-mode
@@ -117,17 +122,18 @@
   (add-hook 'after-init-hook #'global-prettier-mode))
 
 (use-package projectile
+  :diminish
   :bind-keymap
   ("C-c p" . projectile-command-map))
 
 (use-package treemacs
-  :defer t
   :bind (("M-0" . 'treemacs-select-window)))
 
 (use-package treemacs-projectile
   :after (treemacs projectile))
 
 (use-package tree-sitter
+  :defer t
   :config
   (global-tree-sitter-mode)
   (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
