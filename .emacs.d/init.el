@@ -76,6 +76,20 @@
   :diminish
   :hook (typescript-mode))
 
+(use-package counsel
+  :after ivy
+  :demand t
+  :diminish
+  :bind (("C-x C-f" . counsel-find-file)
+         ("C-x C-l" . counsel-find-library)
+         ("M-x"     . counsel-M-x))
+  )
+
+(use-package counsel-projectile
+  :after (counsel projectile)
+  :config
+  (counsel-projectile-mode 1))
+
 (use-package diminish
   :demand t)
 
@@ -99,6 +113,15 @@
   :hook (before-save . gofmt-before-save)
   :custom
   (tab-width 4))
+
+(use-package ivy
+  :diminish
+  :demand t
+  :bind (("C-x b" . ivy-switch-buffer)
+         ("C-x B" . ivy-switch-buffer-other-window)
+         ("M-H" . ivy-resume))
+  :config
+  (ivy-mode 1))
 
 (use-package kconfig-mode
   :mode ("KConfig"
@@ -124,8 +147,14 @@
 
 (use-package projectile
   :diminish
-  :bind-keymap
-  ("C-c p" . projectile-command-map))
+  :init
+  (projectile-mode +1)
+  :bind (:map projectile-mode-map
+         ("s-p" . projectile-command-map)
+         ("C-c p" . projectile-command-map)))
+
+(use-package protobuf-mode
+  )
 
 (use-package treemacs
   :bind (("M-0" . 'treemacs-select-window)))
