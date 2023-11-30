@@ -99,8 +99,11 @@
   (editorconfig-mode 1))
 
 (use-package eglot
-  :defer t
-  :hook (typescript-mode . eglot-ensure))
+  :commands eglot
+  :custom
+  (eglot-autoshutdown t)
+  :hook ((typescript-mode . eglot-ensure)
+         (go-mode . eglot-ensure)))
 
 (use-package elixir-mode
   :mode ("\\.ex"
@@ -153,7 +156,17 @@
          ("s-p" . projectile-command-map)
          ("C-c p" . projectile-command-map)))
 
+(defun my-projectile-project-find-function (dir)
+  (let ((root (projectile-project-root dir)))
+    (and root (cons 'transient root))))
+
+(with-eval-after-load 'project
+  (add-to-list 'project-find-functions 'my-projectile-project-find-function))
+
 (use-package protobuf-mode
+  )
+
+(use-package rego-mode
   )
 
 (use-package treemacs
@@ -185,6 +198,21 @@
 
 (use-package yaml-mode
   :mode ("\\.yml\\'" "\\.yaml\\'"))
+
+;; ##############################################################
+;; Function to insert Patrick-style error tags
+;; ##############################################################
+(defun insert-error-tag ()
+  "Insert an error tag [?????] contain five random uppercase letters."
+  (interactive)
+  (let ((random-letters ""))
+    (dotimes (i 5 random-letters)
+      (setq random-letters 
+            (concat random-letters 
+                    (char-to-string (+ (random 26) ?A)))))
+    (insert (concat "[" random-letters "]"))))
+
+(global-set-key (kbd "C-c e") 'insert-error-tag)
 
 ;; ##############################################################
 ;; Store backups and autosaves in central location
