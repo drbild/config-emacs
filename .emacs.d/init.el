@@ -74,7 +74,10 @@
 (use-package company
   :defer 5
   :diminish
-  :hook (typescript-mode))
+  :hook (typescript-mode)
+  :config (setq company-idle-delay 0.2)
+          (setq company-minimum-prefix-length 2)
+  )
 
 (use-package counsel
   :after ivy
@@ -100,6 +103,9 @@
 
 (use-package eglot
   :commands eglot
+  :config (fset #'jsonrpc--log-event #'ignore)
+          (setq eglot-events-buffer-size 0)
+          (setq eglot-sync-connect nil)
   :custom
   (eglot-autoshutdown t)
   :hook ((typescript-mode . eglot-ensure)
