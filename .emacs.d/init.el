@@ -19,6 +19,8 @@
       package-enable-at-startup nil)
 
 (setq exec-path (append exec-path '("/home/drbild/.asdf/shims")))
+(setq exec-path (append exec-path '("/opt/homebrew/bin")))
+(setenv "PATH" (format "%s:%s" "/opt/homebrew/bin" (getenv "PATH")))
 
 (package-initialize)
 (unless (package-installed-p 'use-package)
@@ -74,7 +76,7 @@
 (use-package company
   :defer 5
   :diminish
-  :hook (typescript-mode)
+  :hook (typescript-ts-base-mode)
   :config (setq company-idle-delay 0.2)
           (setq company-minimum-prefix-length 2)
   )
@@ -108,7 +110,7 @@
           (setq eglot-sync-connect nil)
   :custom
   (eglot-autoshutdown t)
-  :hook ((typescript-mode . eglot-ensure)
+  :hook ((typescript-ts-base-mode . eglot-ensure)
          (go-mode . eglot-ensure)))
 
 (use-package elixir-mode
@@ -182,20 +184,19 @@
   :after (treemacs projectile))
 
 (use-package tree-sitter
-  :defer t
-  :config
-  (global-tree-sitter-mode)
-  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+ :config
+ (global-tree-sitter-mode)
+ (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
 (use-package tree-sitter-langs
   :after tree-sitter)
 
-(use-package typescript-mode
-  ;;:after tree-sitter ;; reenable when tsc adds support for arm64 on Mac
+(use-package typescript-ts-mode
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
   :config
-  (define-derived-mode typescript-tsx-mode typescript-mode "TSX")
-  (add-to-list 'auto-mode-alist `(,(rx ".tsx" eos) . typescript-tsx-mode)))
-  ;;(add-to-list 'tree-sitter-major-mode-language-alist '(typescript-tsx-mode . tsx))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-ts-mode . typescript))
+  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx)))
 
 (use-package whitespace
   :diminish (global-whitespace-mode
@@ -213,8 +214,8 @@
   (interactive)
   (let ((random-letters ""))
     (dotimes (i 5 random-letters)
-      (setq random-letters 
-            (concat random-letters 
+      (setq random-letters
+            (concat random-letters
                     (char-to-string (+ (random 26) ?A)))))
     (insert (concat "[" random-letters "]"))))
 
