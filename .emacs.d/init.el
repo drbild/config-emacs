@@ -76,7 +76,7 @@
 (use-package company
   :defer 5
   :diminish
-  :hook (typescript-ts-base-mode)
+  :hook (typescript-mode)
   :config (setq company-idle-delay 0.2)
           (setq company-minimum-prefix-length 2)
   )
@@ -108,9 +108,10 @@
   :config (fset #'jsonrpc--log-event #'ignore)
           (setq eglot-events-buffer-size 0)
           (setq eglot-sync-connect nil)
+          (add-to-list 'eglot-server-programs '((tsx-mode :language-id "typescriptreact") . ("typescript-language-server" "--stdio")))
   :custom
   (eglot-autoshutdown t)
-  :hook ((typescript-ts-base-mode . eglot-ensure)
+  :hook ((typescript-mode . eglot-ensure)
          (go-mode . eglot-ensure)))
 
 (use-package elixir-mode
@@ -183,20 +184,22 @@
 (use-package treemacs-projectile
   :after (treemacs projectile))
 
-(use-package tree-sitter
- :config
- (global-tree-sitter-mode)
- (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+;; (use-package tree-sitter
+;;  :config
+;;  (global-tree-sitter-mode)
+;;  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
 
-(use-package tree-sitter-langs
-  :after tree-sitter)
+;; (use-package tree-sitter-langs
+;;   :after tree-sitter)
 
-(use-package typescript-ts-mode
-  :mode (("\\.ts\\'" . typescript-ts-mode)
-         ("\\.tsx\\'" . tsx-ts-mode))
+;; (use-package typescript-ts-mode
+;;   :mode (("\\.ts\\'" . typescript-ts-mode)
+;;          ("\\.tsx\\'" . tsx-ts-mode)))
+
+(use-package typescript-mode
   :config
-  (add-to-list 'tree-sitter-major-mode-language-alist '(typescript-ts-mode . typescript))
-  (add-to-list 'tree-sitter-major-mode-language-alist '(tsx-ts-mode . tsx)))
+  (define-derived-mode tsx-mode typescript-mode "TSX")
+  (add-to-list 'auto-mode-alist `(,(rx ".tsx" eos) . tsx-mode)))
 
 (use-package whitespace
   :diminish (global-whitespace-mode
