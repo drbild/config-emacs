@@ -18,7 +18,6 @@
                          ("melpa" . "https://melpa.org/packages/"))
       package-enable-at-startup nil)
 
-(setq exec-path (append exec-path '("/home/drbild/.asdf/shims")))
 (setq exec-path (append exec-path '("/opt/homebrew/bin")))
 (setenv "PATH" (format "%s:%s" "/opt/homebrew/bin" (getenv "PATH")))
 
@@ -59,6 +58,11 @@
 ;; ##############################################################
 (use-package ace-window
   :bind (("M-o" . 'ace-window)))
+
+(use-package asdf
+  :vc (asdf :url "https://github.com/tabfugnic/asdf.el"
+            :branch "main")
+  :config (asdf-enable))
 
 (use-package auto-package-update
   :custom
