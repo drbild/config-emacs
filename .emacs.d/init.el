@@ -35,11 +35,17 @@
   (package-refresh-contents)
   (package-install 'bind-key))
 
+;; Remove after Emacs 30 is released
+(unless (package-installed-p 'vc-use-package)
+  (package-refresh-contents)
+  (package-vc-install "https://github.com/slotThe/vc-use-package"))
+
 (eval-when-compile
   (setq use-package-always-ensure t)
   (require 'use-package)
   (require 'diminish)
-  (require 'bind-key))
+  (require 'bind-key)
+  (require 'vc-use-package))
 
 ;; ##############################################################
 ;; Settings
