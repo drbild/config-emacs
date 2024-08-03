@@ -229,7 +229,7 @@
 ;; ##############################################################
 ;; Function to insert Patrick-style error tags
 ;; ##############################################################
-(defun insert-error-tag ()
+(defun my/insert-error-tag ()
   "Insert an error tag [?????] contain five random uppercase letters."
   (interactive)
   (let ((random-letters ""))
@@ -239,7 +239,7 @@
                     (char-to-string (+ (random 26) ?A)))))
     (insert (concat "[" random-letters "]"))))
 
-(global-set-key (kbd "C-c e") 'insert-error-tag)
+(global-set-key (kbd "C-c e") 'my/insert-error-tag)
 
 ;; ##############################################################
 ;; Store backups and autosaves in central location
