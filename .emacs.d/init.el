@@ -136,6 +136,9 @@
   :custom
   (tab-width 4))
 
+(use-package json-mode
+  :mode (("\\.json\\'" . json-mode)))
+
 (use-package ivy
   :diminish
   :demand t
