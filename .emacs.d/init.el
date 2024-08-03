@@ -191,6 +191,10 @@
 (use-package rego-mode
   )
 
+(use-package swiper
+  :bind (("C-s" . swiper-isearch)
+         ("C-r" . swiper-isearch-backwards)))
+
 (use-package treemacs
   :bind (("M-0" . 'treemacs-select-window)))
 
