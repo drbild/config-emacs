@@ -172,18 +172,11 @@
 
 (use-package projectile
   :diminish
-  :init
-  (projectile-mode +1)
   :bind (:map projectile-mode-map
          ("s-p" . projectile-command-map)
-         ("C-c p" . projectile-command-map)))
-
-(defun my-projectile-project-find-function (dir)
-  (let ((root (projectile-project-root dir)))
-    (and root (cons 'transient root))))
-
-(with-eval-after-load 'project
-  (add-to-list 'project-find-functions 'my-projectile-project-find-function))
+         ("C-c p" . projectile-command-map))
+  :init
+  (projectile-mode +1))
 
 (use-package protobuf-mode
   )
