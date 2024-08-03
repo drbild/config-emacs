@@ -86,7 +86,7 @@
 (use-package company
   :defer 5
   :diminish
-  :hook (typescript-mode)
+  :hook (typescript-mode go-mode)
   :config (setq company-idle-delay 0.2)
           (setq company-minimum-prefix-length 2)
   )
