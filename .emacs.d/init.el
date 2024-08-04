@@ -6,9 +6,7 @@
 
 (eval-and-compile
   (define-inline emacs-path (path)
-    (expand-file-name path user-emacs-directory))
-
-  )
+    (expand-file-name path user-emacs-directory)))
 
 ;; ##############################################################
 ;; Environment
@@ -142,9 +140,7 @@
 (use-package ivy
   :diminish
   :demand t
-  :bind (("C-x b" . ivy-switch-buffer)
-         ("C-x B" . ivy-switch-buffer-other-window)
-         ("M-H" . ivy-resume))
+  :bind (("M-H" . ivy-resume))
   :config
   (ivy-mode 1))
 
@@ -166,6 +162,18 @@
 (use-package nginx-mode
   :defer t)
 
+(use-package perspective
+  :bind(("C-x C-b" . persp-list-buffers)
+        ("C-x b" . persp-counsel-switch-buffer)
+        ("C-x x b" . persp-switch-to-buffer))
+  :custom
+  (persp-mode-prefix-key (kbd "C-c M-p"))
+  :init
+  (persp-mode))
+
+(use-package persp-projectile
+  :after projectile)
+
 (use-package prettier
   :config
   (add-hook 'after-init-hook #'global-prettier-mode))
@@ -176,7 +184,14 @@
          ("s-p" . projectile-command-map)
          ("C-c p" . projectile-command-map))
   :init
-  (projectile-mode +1))
+  (projectile-mode +1)
+  :preface
+  (defun my/projectile-switch-project-action ()
+    "Open the Treemacs window and find a file in the project."
+    (projectile-find-file)
+    (treemacs-select-window))
+  :config
+  (setq projectile-switch-project-action #'my/projectile-switch-project-action))
 
 (use-package protobuf-mode
   )
@@ -193,6 +208,10 @@
 
 (use-package treemacs-projectile
   :after (treemacs projectile))
+
+(use-package treemacs-perspective
+  :after (treemacs perspective)
+  :config (treemacs-set-scope-type 'Perspectives))
 
 ;; (use-package tree-sitter
 ;;  :config
