@@ -220,7 +220,8 @@
          ("C-r" . swiper-isearch-backwards)))
 
 (use-package treemacs
-  :bind (("M-0" . 'treemacs-select-window)))
+  :bind (("M-0" . 'treemacs-select-window))
+  :init(treemacs-project-follow-mode +1))
 
 (use-package treemacs-projectile
   :after (treemacs projectile))
