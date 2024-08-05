@@ -110,6 +110,12 @@
 (use-package diminish
   :demand t)
 
+(use-package dired
+  :ensure nil
+  :config
+  (when (string= system-type "darwin")
+    (setq dired-use-ls-dired nil)))
+
 (use-package editorconfig
   :diminish editorconfig-mode
   :config
