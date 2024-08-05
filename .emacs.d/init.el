@@ -86,8 +86,17 @@
   :diminish
   :hook (typescript-mode go-mode)
   :config (setq company-idle-delay 0.2)
-          (setq company-minimum-prefix-length 2)
-  )
+          (setq company-minimum-prefix-length 2))
+
+(use-package company-quickhelp)
+
+(use-package company-quickhelp-terminal
+  :if (not window-system)
+  :custom
+  (company-quickhelp-use-propertized-text nil)
+  :config
+  (with-eval-after-load 'company-quickhelp
+    (company-quickhelp-terminal-mode 1)))
 
 (use-package counsel
   :after ivy
