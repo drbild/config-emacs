@@ -98,11 +98,6 @@
          ("M-x"     . counsel-M-x))
   )
 
-(use-package counsel-projectile
-  :after (counsel projectile)
-  :config
-  (counsel-projectile-mode 1))
-
 (use-package diminish
   :demand t)
 
@@ -188,10 +183,16 @@
   :preface
   (defun my/projectile-switch-project-action ()
     "Open the Treemacs window and find a file in the project."
-    (projectile-find-file)
-    (treemacs-select-window))
+    (projectile-dired)
+    (treemacs))
+  (defun my/projectile-project-find-function (dir)
+    "Find function for project.el that returns projectile projects"
+    (let ((root (projectile-project-root dir)))
+      (and root (cons 'transient root))))
   :config
-  (setq projectile-switch-project-action #'my/projectile-switch-project-action))
+  (setq projectile-switch-project-action #'my/projectile-switch-project-action)
+  (with-eval-after-load 'project
+    (add-to-list 'project-find-functions 'my-projectile-project-find-function)))
 
 (use-package protobuf-mode
   )
