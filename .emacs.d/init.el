@@ -54,8 +54,6 @@
 ;; ##############################################################
 ;; Packages
 ;; ##############################################################
-(use-package vterm)
-
 (use-package ace-window
   :bind (("M-o" . 'ace-window)))
 
@@ -248,6 +246,35 @@
   :config
   (define-derived-mode tsx-mode typescript-mode "TSX")
   (add-to-list 'auto-mode-alist `(,(rx ".tsx" eos) . tsx-mode)))
+
+(use-package vterm
+  :preface
+  (defun my/open-vterm-in-project-root ()
+    "Toggle a vterm in the root of the current Projectile project.
+If the vterm is visible in the current window, hide
+it. Otherwise, switch to it or create a new one."
+  (interactive)
+  (let* ((project-root (projectile-project-root))
+         (buffer-name (format "*vterm: %s*" (projectile-project-name)))
+         (current-buffer (current-buffer)))
+    (if project-root
+        (if (and (get-buffer buffer-name)
+                 (eq (get-buffer buffer-name) current-buffer))
+            ;; If the vterm buffer is current, bury it (hide it)
+            (bury-buffer)
+          ;; Switch to or create the vterm buffer
+          (progn
+            (if (get-buffer buffer-name)
+                (switch-to-buffer buffer-name)
+              (progn
+                (vterm buffer-name)
+                (set-process-query-on-exit-flag (get-buffer-process buffer-name) nil)
+                (vterm-send-string (format "cd %s" project-root))
+                (vterm-send-return)
+                (vterm-clear)))))
+      (message "Not in a Projectile project."))))
+  :bind("C-c v" . 'my/open-vterm-in-project-root)
+  )
 
 (use-package whitespace
   :diminish (global-whitespace-mode
