@@ -141,6 +141,10 @@
   :hook ((typescript-mode . eglot-ensure)
          (go-mode . eglot-ensure)))
 
+(use-package eldoc
+  :ensure nil
+  :diminish)
+
 (use-package elixir-mode
   :mode ("\\.ex"
          "\\.exs"))
@@ -203,6 +207,7 @@
   :after projectile)
 
 (use-package prettier
+  :diminish
   :config
   (add-hook 'after-init-hook #'global-prettier-mode))
 
@@ -310,6 +315,11 @@ it. Otherwise, switch to it or create a new one."
     (insert (concat "[" random-letters "]"))))
 
 (global-set-key (kbd "C-c e") 'my/insert-error-tag)
+
+;; ##############################################################
+;; Hide VCS info from mode line
+;; ##############################################################
+(setq-default mode-line-format (delete '(vc-mode vc-mode) mode-line-format))
 
 ;; ##############################################################
 ;; Store backups and autosaves in central location
