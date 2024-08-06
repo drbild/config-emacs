@@ -206,6 +206,19 @@
 (use-package persp-projectile
   :after projectile)
 
+(use-package popper
+  :bind (("C-'" . popper-toggle)
+         ("M-'" . popper-cycle))
+  :init
+  (setq popper-reference-buffers
+        '(("\\*Gofmt Errors\\*" . hide)
+          "\\*Messages\\*"
+          "Output\\*$"
+          help-mode
+          compilation-mode))
+  (popper-mode +1)
+  (popper-echo-mode +1))
+
 (use-package prettier
   :diminish
   :config
