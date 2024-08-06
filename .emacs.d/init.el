@@ -200,14 +200,8 @@
     "Open the Treemacs window and find a file in the project."
     (projectile-dired)
     (treemacs))
-  (defun my/projectile-project-find-function (dir)
-    "Find function for project.el that returns projectile projects"
-    (let ((root (projectile-project-root dir)))
-      (and root (cons 'transient root))))
   :config
-  (setq projectile-switch-project-action #'my/projectile-switch-project-action)
-  (with-eval-after-load 'project
-    (add-to-list 'project-find-functions 'my-projectile-project-find-function)))
+  (setq projectile-switch-project-action #'my/projectile-switch-project-action))
 
 (use-package protobuf-mode
   )
