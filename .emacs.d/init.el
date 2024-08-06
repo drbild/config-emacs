@@ -301,6 +301,12 @@ it. Otherwise, switch to it or create a new one."
 (use-package yaml-mode
   :mode ("\\.yml\\'" "\\.yaml\\'"))
 
+(use-package yasnippet
+  :diminish 'yas-minor-mode
+  :config (yas-global-mode 1))
+
+(use-package yasnippet-snippets)
+
 ;; ##############################################################
 ;; Function to insert Patrick-style error tags
 ;; ##############################################################
