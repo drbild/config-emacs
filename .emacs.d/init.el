@@ -57,6 +57,15 @@
 (use-package ace-window
   :bind (("M-o" . 'ace-window)))
 
+(use-package add-node-modules-path
+  :hook
+  (typescript-mode . add-node-modules-path)
+  (typescript-ts-mode . add-node-modules-path)
+  (js-mode . add-node-modules-path)
+  (js-ts-mode .add-node-modules-path)
+  :custom
+  (add-node-modules-path-command '("echo \"$(npx npm root)/.bin\"")))
+
 (use-package asdf
   :vc (asdf :url "https://github.com/tabfugnic/asdf.el"
             :branch "main")
@@ -138,6 +147,15 @@
 
 (use-package erlang
   :defer t)
+
+(use-package flymake-eslint
+  :hook
+  (eglot-managed-mode
+   . (lambda ()
+       (when (derived-mode-p 'typescript-mode 'js-mode)
+         (when-let* ((root (locate-dominating-file (buffer-file-name) "package.json"))
+                     (rc (locate-file ".eslintrc" (list root) '(".js" ".json"))))
+           (flymake-eslint-enable))))))
 
 (use-package go-mode
   :hook (before-save . gofmt-before-save)
