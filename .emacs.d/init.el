@@ -304,7 +304,8 @@ it. Otherwise, switch to it or create a new one."
                 (vterm-clear)))))
       (message "Not in a Projectile project."))))
   :bind("C-c v" . 'my/open-vterm-in-project-root)
-  )
+  :config
+  (setq vterm-timer-delay nil))
 
 (use-package whitespace
   :diminish (global-whitespace-mode
