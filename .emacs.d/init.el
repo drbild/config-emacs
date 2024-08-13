@@ -116,6 +116,11 @@
          ("M-x"     . counsel-M-x))
   )
 
+(use-package counsel-projectile
+  :after (counsel projectile)
+  :config
+  (counsel-projectile-mode 1))
+
 (use-package diminish
   :demand t)
 
