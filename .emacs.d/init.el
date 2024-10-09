@@ -137,10 +137,21 @@
 
 (use-package eglot
   :commands eglot
-  :config (fset #'jsonrpc--log-event #'ignore)
-          (setq eglot-events-buffer-size 0)
-          (setq eglot-sync-connect nil)
-          (add-to-list 'eglot-server-programs '((tsx-mode :language-id "typescriptreact") . ("typescript-language-server" "--stdio")))
+  :preface
+  (defun my/project-find-go-module (dir)
+    (when-let ((root (locate-dominating-file dir "go.mod")))
+      (cons 'go-module root)))
+  (cl-defmethod project-root ((project (head go-module)))
+    (cdr project))
+  :config
+  ;; performance optimizations
+  (fset #'jsonrpc--log-event #'ignore)
+  (setq eglot-events-buffer-size 0)
+  (setq eglot-sync-connect nil)
+  ;; Typescript + React support
+  (add-to-list 'eglot-server-programs '((tsx-mode :language-id "typescriptreact") . ("typescript-language-server" "--stdio")))
+  ;; Golang support
+  (add-hook 'project-find-functions #'my/project-find-go-module)
   :custom
   (eglot-autoshutdown t)
   :hook ((typescript-mode . eglot-ensure)
