@@ -345,10 +345,10 @@ it. Otherwise, switch to it or create a new one."
 ;; Function to insert Patrick-style error tags
 ;; ##############################################################
 (defun my/insert-error-tag ()
-  "Insert an error tag [?????] contain five random uppercase letters."
+  "Insert an error tag [?????] containing six  random uppercase letters or numbers."
   (interactive)
   (let ((random-letters ""))
-    (dotimes (i 5 random-letters)
+    (dotimes (i 6 random-letters)
       (setq random-letters
             (concat random-letters
                     (char-to-string (+ (random 26) ?A)))))
