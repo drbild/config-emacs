@@ -153,7 +153,23 @@
   (setq eglot-sync-connect nil)
   (plist-put eglot-events-buffer-config :size 0)
   ;; Typescript + React support
-  (add-to-list 'eglot-server-programs '((tsx-mode :language-id "typescriptreact") . ("typescript-language-server" "--stdio")))
+  ;;
+  ;; The default value of eglot-server-programs defines some of these
+  ;; modes, but not all of them.  However, we want those pre-defined
+  ;; modes and our custom modes all defined in the same alist pair, so
+  ;; that they share the same server instance. So we redeclare them
+  ;; all. This alist pair is added earlier in the list that the
+  ;; default, so will be take precedence when eglot is searching this
+  ;; list.
+  (add-to-list 'eglot-server-programs '(((jsx-mode :language-id "javascriptreact")
+                                         (jsx-ts-mode :language-id "javascriptreact")
+                                         (js-mode :language-id "javascript")
+                                         (js-ts-mode :language-id "javascript")
+                                         (tsx-mode :language-id "typescriptreact")
+                                         (tsx-ts-mode :language-id "typescriptreact")
+                                         (typescript-mode :language-id "typescript")
+                                         (typescript-ts-mode :language-id "typescript"))
+                                        . ("typescript-language-server" "--stdio")))
   ;; Golang support
   ;;(add-hook 'project-find-functions #'my/project-find-go-module)
   :custom
@@ -234,6 +250,7 @@
         '(("\\*Gofmt Errors\\*" . hide)
           "\\*Messages\\*"
           "Output\\*$"
+          "\\*xref\\*"
           help-mode
           compilation-mode))
   (popper-mode +1)
